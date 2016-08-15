@@ -44,7 +44,7 @@ func (dao *ArtistDAO) Count(rs app.RequestScope) (int, error) {
 }
 
 func (dao *ArtistDAO) Query(rs app.RequestScope, offset, limit int) ([]models.Artist, error) {
-	var artists []models.Artist
+	artists := []models.Artist{}
 	err := rs.Tx().Select().OrderBy("id").Offset(int64(offset)).Limit(int64(limit)).All(&artists)
 	return artists, err
 }
