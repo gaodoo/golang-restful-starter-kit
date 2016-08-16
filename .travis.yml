@@ -9,8 +9,8 @@ cache:
   directories:
     - vendor
 
-addons:
-  postgresql: "9.5"
+services:
+  - postgresql
 
 install:
   - go get golang.org/x/tools/cmd/cover
