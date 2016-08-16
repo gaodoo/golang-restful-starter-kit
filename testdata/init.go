@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/go-ozzo/ozzo-dbx"
-	_ "github.com/lib/pq"  // initialize posgresql for test
+	_ "github.com/lib/pq" // initialize posgresql for test
 	"github.com/qiangxue/golang-restful-starter-kit/app"
 )
 
