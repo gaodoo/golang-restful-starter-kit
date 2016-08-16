@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/go-ozzo/ozzo-dbx"
-	_ "github.com/lib/pq"
+	_ "github.com/lib/pq"  // initialize posgresql for test
 	"github.com/qiangxue/golang-restful-starter-kit/app"
 )
 
 var (
-	db *dbx.DB
+	DB *dbx.DB
 )
 
 func init() {
@@ -21,7 +21,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	db, err = dbx.MustOpen("postgres", config.GetString("dsn"))
+	DB, err = dbx.MustOpen("postgres", config.GetString("dsn"))
 	if err != nil {
 		panic(err)
 	}
@@ -30,10 +30,10 @@ func init() {
 // ResetDB re-create the database schema and re-populate the initial data using the SQL statements in db.sql.
 // This method is mainly used in tests.
 func ResetDB() *dbx.DB {
-	if err := runSQLFile(db, getSQLFile()); err != nil {
+	if err := runSQLFile(DB, getSQLFile()); err != nil {
 		panic(fmt.Errorf("Error while initializing test database: %s", err))
 	}
-	return db
+	return DB
 }
 
 func getSQLFile() string {

@@ -68,7 +68,7 @@ func (s *ArtistService) Delete(rs app.RequestScope, id int) (*models.Artist, err
 	return artist, err
 }
 
-//  Count returns the number of artists.
+// Count returns the number of artists.
 func (s *ArtistService) Count(rs app.RequestScope) (int, error) {
 	return s.dao.Count(rs)
 }

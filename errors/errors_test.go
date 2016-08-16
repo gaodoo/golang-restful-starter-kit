@@ -1,9 +1,9 @@
 package errors
 
 import (
+	errs "errors"
 	"net/http"
 	"testing"
-	errs "errors"
 
 	"github.com/go-ozzo/ozzo-validation"
 	"github.com/stretchr/testify/assert"

@@ -51,4 +51,3 @@ func (rs *requestScope) SetRollback(v bool) {
 func (rs *requestScope) Now() time.Time {
 	return time.Now()
 }
-

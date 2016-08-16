@@ -38,7 +38,7 @@ func TestArtistService_Create(t *testing.T) {
 
 	// dao error
 	_, err = s.Create(nil, &models.Artist{
-		Id: 100,
+		Id:   100,
 		Name: "ddd",
 	})
 	assert.NotNil(t, err)
@@ -103,7 +103,7 @@ func newMockArtistDAO() artistDAO {
 	}
 }
 
-type mockArtistDAO struct{
+type mockArtistDAO struct {
 	records []models.Artist
 }
 
@@ -117,7 +117,7 @@ func (m *mockArtistDAO) Get(rs app.RequestScope, id int) (*models.Artist, error)
 }
 
 func (m *mockArtistDAO) Query(rs app.RequestScope, offset, limit int) ([]models.Artist, error) {
-	return m.records[offset:offset+limit], nil
+	return m.records[offset : offset+limit], nil
 }
 
 func (m *mockArtistDAO) Count(rs app.RequestScope) (int, error) {
