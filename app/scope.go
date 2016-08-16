@@ -62,10 +62,10 @@ func newRequestScope(now time.Time, logger *logrus.Logger, request *http.Request
 	userID := authenticate(request)
 	return &requestScope{
 		Logger: NewLogger(logger, logrus.Fields{
-			"UserID":    userID,
+			"UserID": userID,
 		}),
-		now:       now,
-		userID:    userID,
+		now:    now,
+		userID: userID,
 	}
 }
 

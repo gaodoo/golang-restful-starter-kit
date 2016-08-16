@@ -1,5 +1,10 @@
 # Go RESTful Application Starter Kit
 
+[![GoDoc](https://godoc.org/github.com/qiangxue/golang-restful-starter-kit?status.png)](http://godoc.org/github.com/qiangxue/golang-restful-starter-kit)
+[![Build Status](https://travis-ci.org/qiangxue/golang-restful-starter-kit.svg?branch=master)](https://travis-ci.org/qiangxue/golang-restful-starter-kit)
+[![Coverage Status](https://coveralls.io/repos/github/qiangxue/golang-restful-starter-kit/badge.svg?branch=master)](https://coveralls.io/github/qiangxue/golang-restful-starter-kit?branch=master)
+[![Go Report](https://goreportcard.com/badge/github.com/qiangxue/golang-restful-starter-kit)](https://goreportcard.com/report/github.com/qiangxue/golang-restful-starter-kit)
+
 This starter kit is designed to get you up and running with a project structure optimal for developing
 RESTful services in Go. The kit promotes the best practices that follow the [SOLID principles](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
 and encourage writing clear and idiomatic Go code. 
@@ -46,20 +51,22 @@ cd $GOPATH/qiangxue/golang-restful-starter-kit
 glide up -u -s
 ```
 
-Next, create a PostgreSQL database named `music` and execute the SQL statements given in the file `data/db.sql`.
+Next, create a PostgreSQL database named `go_restful` and execute the SQL statements given in the file `data/db.sql`.
 The starter kit uses the following default database connection information:
-* server address: 127.0.0.1 (local machine)
-* server port: 5432
-* database name: music
-* username: music
-* password: music
+* server address: `127.0.0.1` (local machine)
+* server port: `5432`
+* database name: `go_restful`
+* username: `postgres`
+* password: `postgres`
 
-If your connection is different from the above, you should define an environment variable named
-`MUSIC_DSN` whose value is in the following format:
+If your connection is different from the above, you may modify the configuration file `config/app.yaml`, or
+define an environment variable named `RESTFUL_DSN` like the following:
 
 ```
 postgres://<username>:<password>@<server-address>:<server-port>/<db-name>
 ```
+
+For more details about specifying a PostgreSQL DSN, please refer to [the documentation](https://godoc.org/github.com/lib/pq).
 
 Now you can build and run the application by running the following command under the
 `$GOPATH/qiangxue/golang-restful-starter-kit` directory:

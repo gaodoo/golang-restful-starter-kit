@@ -96,9 +96,9 @@ func TestArtistService_Query(t *testing.T) {
 func newMockArtistDAO() artistDAO {
 	return &mockArtistDAO{
 		records: []models.Artist{
-			models.Artist{Id: 1, Name: "aaa"},
-			models.Artist{Id: 2, Name: "bbb"},
-			models.Artist{Id: 3, Name: "ccc"},
+			{Id: 1, Name: "aaa"},
+			{Id: 2, Name: "bbb"},
+			{Id: 3, Name: "ccc"},
 		},
 	}
 }

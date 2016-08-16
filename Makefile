@@ -1,6 +1,7 @@
-MAIN_VERSION:=$(shell git describe --abbrev=0 --tags || echo "1.0")
+MAIN_VERSION:=$(shell git describe --abbrev=0 --tags || echo "0.1")
 VERSION:=${MAIN_VERSION}\#$(shell git log -n 1 --pretty=format:"%h")
 PACKAGES:=$(shell go list ./... | sed -n '1!p' | grep -v /vendor/)
+RELEASE_FILE:=server-${MAIN_VERSION}.tar.gz
 LDFLAGS:=-ldflags "-X github.com/qiangxue/golang-restful-starter-kit/app.Version=${VERSION}"
 
 default: run
@@ -20,7 +21,10 @@ run:
 	go run ${LDFLAGS} server.go
 
 build: clean
-	GOOS=linux GOARCH=amd64 go build ${LDFLAGS} -a -o server server.go
+	mkdir -p build
+	GOOS=linux GOARCH=amd64 go build ${LDFLAGS} -a -o build/server server.go
+	cp -r config build
+	cd build && tar zcf ${RELEASE_FILE} *
 
 clean:
-	rm -f server coverage.out coverage-all.out
+	rm -rf build server coverage.out coverage-all.out

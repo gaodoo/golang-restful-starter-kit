@@ -3,20 +3,20 @@ package errors
 import (
 	"net/http"
 	"testing"
+	errs "errors"
 
 	"github.com/go-ozzo/ozzo-validation"
-	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestInternalServerError(t *testing.T) {
-	assert.Equal(t, http.StatusInternalServerError, InternalServerError(errors.New("")).Status)
+	assert.Equal(t, http.StatusInternalServerError, InternalServerError(errs.New("")).Status)
 }
 
 func TestInvalidData(t *testing.T) {
 	err := InvalidData(validation.Errors{
-		"abc": errors.New("1"),
-		"xyz": errors.New("2"),
+		"abc": errs.New("1"),
+		"xyz": errs.New("2"),
 	})
 	assert.Equal(t, http.StatusBadRequest, err.Status)
 	assert.NotNil(t, err.Details)

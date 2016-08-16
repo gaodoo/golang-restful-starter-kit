@@ -26,3 +26,5 @@ _testmain.go
 glide.lock
 coverage.out
 coverage-all.out
+build
+server
