@@ -1,7 +1,5 @@
 package errors
 
-import "time"
-
 // APIError represents an error that can be sent in an error response.
 type APIError struct {
 	// Status represents the HTTP status code
@@ -14,8 +12,6 @@ type APIError struct {
 	DeveloperMessage string `json:"developer_message,omitempty"`
 	// Details specifies the additional error information
 	Details interface{} `json:"details,omitempty"`
-	// Time specifies the error timestamp
-	Time time.Time `json:"time"`
 }
 
 // Error returns the error message.

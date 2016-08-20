@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
-	"time"
 
 	"gopkg.in/yaml.v2"
 )
@@ -38,7 +37,6 @@ func NewAPIError(status int, code string, params Params) *APIError {
 		Status:    status,
 		ErrorCode: code,
 		Message:   code,
-		Time:      time.Now().UTC(),
 	}
 
 	if template, ok := templates[code]; ok {

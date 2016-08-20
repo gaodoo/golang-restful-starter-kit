@@ -55,12 +55,15 @@ func convertError(c *routing.Context, err error) error {
 	switch err.(type) {
 	case *errors.APIError:
 		return err
-	case routing.HTTPError:
-		// this error is from the default NotFound handler in ozzo-routing
-		return errors.NotFound("the requested resource")
 	case validation.Errors:
 		return errors.InvalidData(err.(validation.Errors))
-	default:
-		return errors.InternalServerError(err)
+	case routing.HTTPError:
+		switch err.(routing.HTTPError).StatusCode() {
+		case http.StatusUnauthorized:
+			return errors.Unauthorized(err.Error())
+		case http.StatusNotFound:
+			return errors.NotFound("the requested resource")
+		}
 	}
+	return errors.InternalServerError(err)
 }

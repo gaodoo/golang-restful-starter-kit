@@ -26,7 +26,7 @@ type (
 )
 
 // ServeArtist sets up the routing of artist endpoints and the corresponding handlers.
-func ServeArtist(rg *routing.RouteGroup, service artistService) {
+func ServeArtistResource(rg *routing.RouteGroup, service artistService) {
 	r := &artistResource{service}
 	rg.Get("/artists/<id>", r.get)
 	rg.Get("/artists", r.query)
@@ -69,7 +69,6 @@ func (r *artistResource) create(c *routing.Context) error {
 	if err := c.Read(&model); err != nil {
 		return err
 	}
-
 	response, err := r.service.Create(app.GetRequestScope(c), &model)
 	if err != nil {
 		return err

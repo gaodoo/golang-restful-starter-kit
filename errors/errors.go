@@ -22,6 +22,11 @@ func NotFound(resource string) *APIError {
 	return NewAPIError(http.StatusNotFound, "NOT_FOUND", Params{"resource": resource})
 }
 
+// Unauthorized creates a new API error representing an authentication failure (HTTP 401)
+func Unauthorized(err string) *APIError {
+	return NewAPIError(http.StatusUnauthorized, "UNAUTHORIZED", Params{"error": err})
+}
+
 // InvalidData converts a data validation error into an API error (HTTP 400)
 func InvalidData(errs validation.Errors) *APIError {
 	result := []validationError{}

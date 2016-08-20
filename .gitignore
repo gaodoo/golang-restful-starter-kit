@@ -28,3 +28,4 @@ coverage.out
 coverage-all.out
 build
 server
+vendor

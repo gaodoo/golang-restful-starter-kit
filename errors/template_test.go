@@ -19,12 +19,10 @@ func TestNewAPIError(t *testing.T) {
 	e := NewAPIError(http.StatusContinue, "xyz", nil)
 	assert.Equal(t, http.StatusContinue, e.Status)
 	assert.Equal(t, "xyz", e.Message)
-	assert.NotZero(t, e.Time)
 
 	e = NewAPIError(http.StatusNotFound, "NOT_FOUND", nil)
 	assert.Equal(t, http.StatusNotFound, e.Status)
 	assert.NotEqual(t, "NOT_FOUND", e.Message)
-	assert.NotZero(t, e.Time)
 }
 
 func TestLoadMessages(t *testing.T) {

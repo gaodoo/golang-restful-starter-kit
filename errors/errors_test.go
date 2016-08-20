@@ -13,6 +13,10 @@ func TestInternalServerError(t *testing.T) {
 	assert.Equal(t, http.StatusInternalServerError, InternalServerError(errs.New("")).Status)
 }
 
+func TestUnauthorized(t *testing.T) {
+	assert.Equal(t, http.StatusUnauthorized, Unauthorized("t").Status)
+}
+
 func TestInvalidData(t *testing.T) {
 	err := InvalidData(validation.Errors{
 		"abc": errs.New("1"),

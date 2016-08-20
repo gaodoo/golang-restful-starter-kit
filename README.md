@@ -13,6 +13,7 @@ The kit provides the following features right out of the box
 
 * RESTful endpoints in the widely accepted format
 * Standard CRUD operations of a database table
+* JWT-based authentication
 * Application configuration via environment variable and configuration file
 * Structured logging with contextual information
 * Panic handling and proper error response generation
@@ -84,6 +85,7 @@ make
 The application runs as an HTTP server at port 8080. It provides the following RESTful endpoints:
 
 * `GET /ping`: a ping service mainly provided for health check purpose
+* `POST /v1/auth`: authenticate a user
 * `GET /v1/artists`: returns a paginated list of the artists
 * `GET /v1/artists/:id`: returns the detailed information of an artist
 * `POST /v1/artists`: creates a new artist
