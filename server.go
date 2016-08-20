@@ -15,7 +15,6 @@ import (
 	"github.com/qiangxue/golang-restful-starter-kit/daos"
 	"github.com/qiangxue/golang-restful-starter-kit/errors"
 	"github.com/qiangxue/golang-restful-starter-kit/services"
-	"github.com/go-ozzo/ozzo-routing/auth"
 )
 
 func main() {
