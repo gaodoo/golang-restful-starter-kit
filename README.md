@@ -92,13 +92,20 @@ The application runs as an HTTP server at port 8080. It provides the following R
 * `PUT /v1/artists/:id`: updates an existing artist
 * `DELETE /v1/artists/:id`: deletes an artist
 
-For example, if you access the URL `http://localhost:8080/v1/artists` in a browser or via `cURL`:
+For example, if you access the URL `http://localhost:8080/ping` in a browser, you should see the browser
+displays something like `OK v0.1#bc41dce`.
+
+If you have `cURL` or some API client tools (e.g. Postman), you may try the following more complex scenarios:
 
 ```shell
-curl -X GET "http://localhost:8080/v1/artists"
-```
+# authenticate the user via: POST /v1/auth
+curl -X POST -H "Content-Type: application/json" -d '{"username": "demo", "password": "pass"}' http://localhost:8080/v1/auth
+# should return a JWT token like: {"token":"...JWT token here..."}
 
-you should be able to see a list of the artists returned in the JSON format.
+# with the above JWT token, access the artist resources, such as: GET /v1/artists
+curl -X GET -H "Authorization: Bearer ...JWT token here..." http://localhost:8080/v1/artists
+# should return a list of artist records in the JSON format
+```
 
 ## Next Steps
 

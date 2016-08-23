@@ -17,11 +17,11 @@ var (
 
 func init() {
 	// the test may be started from the home directory or a subdirectory
-	config, err := app.LoadConfig("./config", "../config")
+	err := app.LoadConfig("./config", "../config")
 	if err != nil {
 		panic(err)
 	}
-	DB, err = dbx.MustOpen("postgres", config.GetString("dsn"))
+	DB, err = dbx.MustOpen("postgres", app.Config.DSN)
 	if err != nil {
 		panic(err)
 	}

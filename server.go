@@ -7,6 +7,7 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/go-ozzo/ozzo-dbx"
 	"github.com/go-ozzo/ozzo-routing"
+	"github.com/go-ozzo/ozzo-routing/auth"
 	"github.com/go-ozzo/ozzo-routing/content"
 	"github.com/go-ozzo/ozzo-routing/cors"
 	_ "github.com/lib/pq"
@@ -19,13 +20,12 @@ import (
 
 func main() {
 	// load application configurations
-	config, err := app.LoadConfig("./config")
-	if err != nil {
-		panic(err)
+	if err := app.LoadConfig("./config"); err != nil {
+		panic(fmt.Errorf("Invalid application configuration: %s", err))
 	}
 
 	// load error messages
-	if err := errors.LoadMessages(config.GetString("error_file")); err != nil {
+	if err := errors.LoadMessages(app.Config.ErrorFile); err != nil {
 		panic(fmt.Errorf("Failed to read the error message file: %s", err))
 	}
 
@@ -33,22 +33,22 @@ func main() {
 	logger := logrus.New()
 
 	// connect to the database
-	db, err := dbx.MustOpen("postgres", config.GetString("dsn"))
+	db, err := dbx.MustOpen("postgres", app.Config.DSN)
 	if err != nil {
 		panic(err)
 	}
 	db.LogFunc = logger.Infof
 
 	// wire up API routing
-	http.Handle("/", buildRouter(config, logger, db))
+	http.Handle("/", buildRouter(logger, db))
 
 	// start the server
-	address := ":" + config.GetString("server_port")
+	address := fmt.Sprintf(":%v", app.Config.ServerPort)
 	logger.Infof("server %v is started at %v\n", app.Version, address)
 	panic(http.ListenAndServe(address, nil))
 }
 
-func buildRouter(config app.Config, logger *logrus.Logger, db *dbx.DB) *routing.Router {
+func buildRouter(logger *logrus.Logger, db *dbx.DB) *routing.Router {
 	router := routing.New()
 
 	router.To("GET,HEAD", "/ping", func(c *routing.Context) error {
@@ -68,9 +68,8 @@ func buildRouter(config app.Config, logger *logrus.Logger, db *dbx.DB) *routing.
 
 	rg := router.Group("/v1")
 
-	// Uncomment the following lines to enable JWT authentication
-	// rg.Post("/auth", apis.Auth(config.GetString("jwt_signing_key")))
-	// rg.Use(auth.JWT(config.GetString("jwt_verification_key")))
+	rg.Post("/auth", apis.Auth(app.Config.JWTSigningKey))
+	rg.Use(auth.JWT(app.Config.JWTVerificationKey))
 
 	artistDAO := daos.NewArtistDAO()
 	apis.ServeArtistResource(rg, services.NewArtistService(artistDAO))
